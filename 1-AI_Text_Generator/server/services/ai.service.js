@@ -2,26 +2,17 @@ const Groq = require('groq-sdk');
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-const generateRespone = async (prompt) => {
-    const chatCompletion = await getGroqChatCompletion(prompt);
+const generateResponse = async (message) => {
+    const chatCompletion = await getGroqChatCompletion(message);
     // Print the completion returned by the LLM.
-    console.log(chatCompletion.choices[0]?.message?.content || "");
+    return chatCompletion.choices[0]?.message?.content || "" ;
 }
 
-const getGroqChatCompletion = async (prompt) => {
+const getGroqChatCompletion = async (message) => {
     return groq.chat.completions.create({
-        messages: [
-            {
-                role: "system", 
-                content : ""
-            },
-            {
-                role: "user",
-                content: prompt ,
-            },
-        ],
+        messages,
         model: "openai/gpt-oss-20b",
     });
 }
 
-module.exports = generateRespone ; 
+module.exports = generateResponse ; 
