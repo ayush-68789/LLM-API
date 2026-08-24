@@ -10,7 +10,7 @@ const generateResponse = async (message) => {
 
 const getGroqChatCompletion = async (message) => {
     return groq.chat.completions.create({
-        messages,
+        messages : message,
         model: "openai/gpt-oss-20b",
     });
 }

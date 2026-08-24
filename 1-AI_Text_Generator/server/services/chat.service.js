@@ -24,17 +24,18 @@ const sendMessage = async (convoId, userMessage) => {
     // get history convo
     const previousMessages = await message.find({conversationId : convoId}).sort({createdAt : 1}).lean() ;
 
-    const Messages = [
+    const messages = [
         {
-            role : 'system', 
-            content : conversation.systemPrompt
-        } ,
-        ...previousMessages.map((Messages) => ({
-            role: Messages.role,
-            content: Messages.content
-        }))
-    ]
-    const aiResponse = await generateResponse(Messages) ;
+            role: "system",
+            content: conversation.systemPrompt,
+        },
+
+        ...previousMessages.map((message) => ({
+            role: message.role,
+            content: message.content,
+        })),
+    ];
+    const aiResponse = await generateResponse(messages) ;
     await message.create({
         conversationId: convoId,
         role: "assistant",

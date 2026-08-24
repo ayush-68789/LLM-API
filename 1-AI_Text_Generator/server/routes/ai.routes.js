@@ -1,7 +1,13 @@
-const express = require('express') ; 
-const Router = express.Router() ; 
-const askAi = require('../controllers/ai.chat.controller') ;
+const express = require("express");
 
-Router.post('/chat', askAi) ;  
+const {createConversation,sendMessage} = require("../controllers/ai.chat.controller");
 
-module.exports = Router ; 
+const router = express.Router();
+
+// Create conversation
+router.post("/conversations", createConversation);
+
+// Send message
+router.post("/conversations/:convoId/messages", sendMessage);
+
+module.exports = router;
