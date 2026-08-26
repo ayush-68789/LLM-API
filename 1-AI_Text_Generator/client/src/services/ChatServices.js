@@ -2,7 +2,7 @@
 
     // Get all conversations
     export const getConversations = async () => {
-    const response = await fetch(`${API_URL}/conversations`);
+    const response = await fetch(`${API_URL}/api/chat/conversations`);
 
     if (!response.ok) {
         throw new Error("Failed to fetch conversations");
@@ -15,7 +15,7 @@
 
 // Create conversation
 export const createConversation = async () => {
-    const response = await fetch(`${API_URL}/conversations`, {
+    const response = await fetch(`${API_URL}/api/chat/conversations`, {
         method: "POST",
     });
 
@@ -30,7 +30,7 @@ export const createConversation = async () => {
 
 // Get one conversation
 export const getConversation = async (conversationId) => {
-    const response = await fetch(`${API_URL}/conversations/${conversationId}`);
+    const response = await fetch(`${API_URL}/api/chat/conversations/${conversationId}`);
 
     if (!response.ok) {
         throw new Error("Failed to fetch conversation");
@@ -46,7 +46,7 @@ export const getConversation = async (conversationId) => {
 // Send message
 export const sendMessage = async (conversationId, message) => {
     const response = await fetch(
-        `${API_URL}/conversations/${conversationId}/messages`,
+        `${API_URL}/api/chat/conversations/${conversationId}/messages`,
 
         {
             method: "POST",
@@ -71,7 +71,7 @@ export const sendMessage = async (conversationId, message) => {
 };
 
 export const renameConversation = async (conversationId, title) => {
-    const response = await fetch(`${API_URL}/conversations/${conversationId}`, {
+    const response = await fetch(`${API_URL}/api/chat/conversations/${conversationId}`, {
         method: "PATCH",
 
         headers: {
@@ -93,7 +93,7 @@ export const renameConversation = async (conversationId, title) => {
 };
 
 export const deleteConversation = async (conversationId) => {
-    const response = await fetch(`${API_URL}/conversations/${conversationId}`, {
+    const response = await fetch(`${API_URL}/api/chat/conversations/${conversationId}`, {
         method: "DELETE",
     });
 
