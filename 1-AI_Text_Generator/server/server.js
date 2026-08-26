@@ -9,7 +9,7 @@ const aiRoute = require("./routes/ai.routes");
 
 app.use(
     cors({
-        origin: "http://localhost:5173",
+        origin: ["http://localhost:5173","https://llm-api-ruddy.vercel.app/"]
     }),
 );
 app.use(express.json());
