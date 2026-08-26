@@ -49,4 +49,91 @@ const sendMessage = async (req ,res) => {
     }
 }
 
-module.exports = {createConversation , sendMessage} ;
+const getConversation = async (req, res) => {
+    try{
+        const {convoId} = req.params ;
+        const data = await chatService.getConversation(convoId) ;
+        return res.status(200).json({
+            success: true,
+            data,
+        });
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: err.message,
+        });
+    }
+}
+
+const getAllConversations = async (req, res) => {
+    try {
+        const conversations = await chatService.getAllConversations();
+
+        return res.status(200).json({
+            success: true,
+            data: conversations,
+        });
+    } catch (err) {
+        console.log(err);
+
+        return res.status(500).json({
+            success: false,
+            message: err.message,
+        });
+    }
+};
+
+const renameConversation = async (req, res) => {
+    try {
+        const { convoId } = req.params;
+        const { title } = req.body;
+
+        if (!title || !title.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Title is required",
+            });
+        }
+
+        const conversation = await chatService.renameConversation(
+            convoId,
+            title.trim(),
+        );
+
+        return res.status(200).json({
+            success: true,
+            data: conversation,
+        });
+    } catch (err) {
+        console.log(err);
+
+        return res.status(500).json({
+            success: false,
+            message: err.message,
+        });
+    }
+};
+
+const deleteConversation = async (req, res) => {
+    try {
+        const { convoId } = req.params;
+
+        await chatService.deleteConversation(convoId);
+
+        return res.status(200).json({
+            success: true,
+            message: "Conversation deleted successfully",
+        });
+    } catch (err) {
+        console.log(err);
+
+        return res.status(500).json({
+            success: false,
+            message: err.message,
+        });
+    }
+};
+
+module.exports = {createConversation , sendMessage, getConversation, getAllConversations ,renameConversation , deleteConversation} ;
