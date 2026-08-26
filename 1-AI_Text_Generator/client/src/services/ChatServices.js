@@ -1,7 +1,7 @@
-const API_URL = "http://localhost:5050/api/chat";
+    const API_URL = import.meta.env.VITE_API_URL;
 
-// Get all conversations
-export const getConversations = async () => {
+    // Get all conversations
+    export const getConversations = async () => {
     const response = await fetch(`${API_URL}/conversations`);
 
     if (!response.ok) {
