@@ -1,10 +1,19 @@
-    const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
-    // Get all conversations
-    export const getConversations = async () => {
-    const response = await fetch(`${API_URL}/api/chat/conversations`);
+export const getConversations = async () => {
+    console.log("API_URL:", API_URL);
+
+    const url = `${API_URL}/api/chat/conversations`;
+    console.log("Fetching:", url);
+
+    const response = await fetch(url);
+
+    console.log("Status:", response.status);
+    console.log("Content-Type:", response.headers.get("content-type"));
 
     if (!response.ok) {
+        const text = await response.text();
+        console.log("Server response:", text);
         throw new Error("Failed to fetch conversations");
     }
 
@@ -12,7 +21,6 @@
 
     return data.data;
 };
-
 // Create conversation
 export const createConversation = async () => {
     const response = await fetch(`${API_URL}/api/chat/conversations`, {
